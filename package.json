@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "angular-imask": "^6.0.4",
-    "angular-in-memory-web-api": "^0.10.0",
+    "angular-in-memory-web-api": "^0.8.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",

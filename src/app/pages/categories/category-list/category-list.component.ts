@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import toastr from 'toastr';
+
 import { CategoryService } from '../shared/category.service';
 import { Category } from '../shared/category.model';
 
@@ -37,7 +40,10 @@ export class CategoryListComponent implements OnInit {
 
   private deleteCategory(id: number) {
     this.categoryService.delete(id).subscribe(
-      () => this.getCategories(),
+      () => {
+        this.getCategories();
+        toastr.success('Categoria excluida com sucesso!');
+      },
       error => alert('Falha ao deletar categoria')
     );
   }

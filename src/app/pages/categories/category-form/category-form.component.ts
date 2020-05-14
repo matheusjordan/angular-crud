@@ -19,6 +19,7 @@ export class CategoryFormComponent implements OnInit {
   currentAction = '';
   isEdit = false;
   submittingForm = false;
+  serverErrorMessages: any[];
 
   constructor(
     private categoryService: CategoryService,
@@ -70,7 +71,7 @@ export class CategoryFormComponent implements OnInit {
       },
       error => {
         this.submittingForm = false;
-        this.actionsForError();
+        this.actionsForError(error);
       }
     );
   }
@@ -79,12 +80,10 @@ export class CategoryFormComponent implements OnInit {
     this.submittingForm = true;
     this.categoryService.update(category).subscribe(
       () => {
-        this.submittingForm = false;
         this.actionsForSucess();
       },
       error => {
-        this.submittingForm = false;
-        this.actionsForError();
+        this.actionsForError(error);
       }
     );
   }
@@ -110,14 +109,20 @@ export class CategoryFormComponent implements OnInit {
 
   private actionsForSucess() {
     toastr.success(`Categoria ${this.isEdit ? 'editada' : 'criada'} com sucesso!`);
+    this.submittingForm = false;
 
     if (!this.isEdit) {
       this.categoryForm.reset();
     }
   }
 
-  private actionsForError() {
+  private actionsForError(error?: any) {
     toastr.error(`Falha ao ${this.isEdit ? 'editar' : 'criar'} categoria!`);
+    this.submittingForm = false;
+
+    if (error) {
+      this.serverErrorMessages = ['Falha ao processar requisição!'];
+    }
   }
 
 }
